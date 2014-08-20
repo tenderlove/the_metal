@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/the_metal
+lib/the_metal.rb
+test/test_the_metal.rb
