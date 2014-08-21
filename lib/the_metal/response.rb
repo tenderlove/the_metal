@@ -7,31 +7,35 @@ module TheMetal
     def initialize req, socket
       @req     = req
       @socket  = socket
-      @headers = {}
+      @headers = {
+        'Date'       => httpdate,
+        'Connection' => 'close'
+      }
       @status  = nil
+    end
+
+    def set_header key, value
+      @headers[key] = value
+    end
+
+    def get_header key
+      @headers[key]
     end
 
     def write_head status, headers
       http_response_start = 'HTTP/1.1 '
-      buf = "#{http_response_start}#{CODES[status.to_i] || status}\r\n" \
-        "Date: #{httpdate}\r\n" \
-      "Connection: close\r\n"
+      @socket.write "#{http_response_start}#{CODES[status.to_i] || status}\r\n"
+
+      @headers.each do |key, value|
+        write_header key, value, @socket
+      end
+
       headers.each do |key, value|
-        case key
-        when %r{\A(?:Date\z|Connection\z)}i
-          next
-        else
-          if value =~ /\n/
-            # avoiding blank, key-only cookies with /\n+/
-            buf << value.split(/\n+/).map! { |v| "#{key}: #{v}\r\n" }.join
-          else
-            buf << "#{key}: #{value}\r\n"
-          end
-        end
+        write_header key, value, @socket
       end
 
       @status = status
-      @socket.write(buf << CRLF)
+      @socket.write CRLF
     end
 
     def write chunk
@@ -45,6 +49,15 @@ module TheMetal
     private
 
     require 'time'
+
+    def write_header key, value, buf
+      if value =~ /\n/
+        # avoiding blank, key-only cookies with /\n+/
+        buf.write value.split(/\n+/).map! { |v| "#{key}: #{v}\r\n" }.join
+      else
+        buf.write "#{key}: #{value}\r\n"
+      end
+    end
 
     # unicorn has an optimized version, so add a hook method to override
     def httpdate
