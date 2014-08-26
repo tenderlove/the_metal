@@ -4,14 +4,14 @@ module TheMetal
   class Response
     attr_accessor :status
 
-    def initialize req, socket
-      @req     = req
+    def initialize status, headers, socket
       @socket  = socket
+      @status  = status
+
       @headers = {
         'Date'       => httpdate,
         'Connection' => 'close'
-      }
-      @status  = nil
+      }.merge headers
     end
 
     def set_header key, value

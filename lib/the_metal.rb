@@ -10,7 +10,7 @@ module TheMetal
 
   class Application < Struct.new :events, :chain
     def start_app
-      events.each(&:start_app)
+      events.each { |e| e.start_app self }
     end
 
     def serve req, res
