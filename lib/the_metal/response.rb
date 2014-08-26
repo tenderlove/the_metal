@@ -42,7 +42,7 @@ module TheMetal
       @socket.write chunk
     end
 
-    def close
+    def finish
       @socket.close
     end
 

@@ -21,7 +21,7 @@ class Application
   def serve req, res
     res.write_head 200, 'Content-Type' => 'text/plain'
     res.write "Hello World\n"
-    res.close
+    res.finish
   end
 end
 
@@ -40,7 +40,7 @@ class Application
   def serve req, res
     res.write_head 200, 'Content-Type' => 'text/plain'
     res.write "Hello World\n"
-    res.close
+    res.finish
   end
 end
 
@@ -82,7 +82,7 @@ class Application
   def serve req, res
     res.write_head 200, 'Content-Type' => 'text/plain'
     res.write "Hello World\n"
-    res.close
+    res.finish
   end
 end
 
@@ -103,7 +103,7 @@ class ContentLength
       @body << chunk
     end
 
-    def close
+    def finish
       body = @body.join
       size = body.bytesize
       @headers['Content-Length'] = size

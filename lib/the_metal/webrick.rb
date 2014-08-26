@@ -62,12 +62,12 @@ module TheMetal
         @socket.write chunk
       end
 
-      def close
+      def finish
         @socket.close
       end
     end
 
-    def service(req, res)
+    def service req, res
       env = req.meta_vars
       env.delete_if { |k, v| v.nil? }
 
