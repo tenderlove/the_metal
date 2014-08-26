@@ -2,6 +2,8 @@
 
 * http://github.com/tenderlove/the_metal
 
+![heavy metal](http://stuffpoint.com/heavy-metal/image/353683-heavy-metal-heavy-metal-zombie.jpg)
+
 ## DESCRIPTION:
 
 A spike for researching Rack 2.0
