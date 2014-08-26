@@ -78,8 +78,6 @@ module TheMetal
       res.body = rd
       res.chunked = true
 
-      default_headers = { }
-
       m_req = TheMetal::Request.new env
       m_res = Response.new res, wr
       @app.serve m_req, m_res
