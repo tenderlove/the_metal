@@ -16,7 +16,7 @@ module TheMetal
       default_headers = { }
       req = TheMetal::Request.new env
       res = TheMetal::Response.new 200, default_headers, socket
-      @app.serve req, res
+      @app.call req, res
       [nil, {}, nil]
     end
 

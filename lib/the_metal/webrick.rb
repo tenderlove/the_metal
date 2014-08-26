@@ -80,7 +80,7 @@ module TheMetal
 
       m_req = TheMetal::Request.new env
       m_res = Response.new res, wr
-      @app.serve m_req, m_res
+      @app.call m_req, m_res
     end
   end
 end

@@ -18,7 +18,7 @@ module TheMetal
 
       req = TheMetal::Request.new env
       res = TheMetal::Response.new 200, default_headers, client
-      @app.serve req, res
+      @app.call req, res
     rescue => e
       handle_error client, e
     end

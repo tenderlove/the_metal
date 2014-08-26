@@ -110,7 +110,7 @@ module TheMetal
         @code = code
       end
 
-      def serve req, res
+      def call req, res
         res.write_head @code, 'Content-Type' => 'text/plain'
         res.write "Hello World\n"
         res.finish

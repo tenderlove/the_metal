@@ -13,9 +13,9 @@ module TheMetal
       events.each { |e| e.start_app self }
     end
 
-    def serve req, res
+    def call req, res
       events.each { |e| e.start_request req, res }
-      chain.serve req, res
+      chain.call req, res
       events.reverse_each { |e| e.finish_request req, res }
     end
   end

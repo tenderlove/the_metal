@@ -17,8 +17,20 @@ Totally experimental.  It's just a spike.
 An app without any middleware:
 
 ```ruby
+require 'the_metal/puma'
+
+TheMetal.create_server(->(req, res) {
+  res.write_head 200, 'Content-Type' => 'text/plain'
+  res.write "Hello World\n"
+  res.finish
+}).listen 9292, '0.0.0.0'
+```
+
+You can use a class too:
+
+```ruby
 class Application
-  def serve req, res
+  def call req, res
     res.write_head 200, 'Content-Type' => 'text/plain'
     res.write "Hello World\n"
     res.finish
@@ -79,7 +91,7 @@ require 'the_metal'
 require 'the_metal/response'
 
 class Application
-  def serve req, res
+  def call req, res
     res.write_head 200, 'Content-Type' => 'text/plain'
     res.write "Hello World\n"
     res.finish
