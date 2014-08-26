@@ -49,7 +49,7 @@ checks it back in when the response is finished:
 require 'the_metal'
 
 class Application
-  def serve req, res
+  def call req, res
     res.write_head 200, 'Content-Type' => 'text/plain'
     res.write "Hello World\n"
     res.finish
