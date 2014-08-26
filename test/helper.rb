@@ -4,6 +4,8 @@ require 'drb'
 require 'drb/unix'
 require 'tempfile'
 
+Thread.abort_on_exception = true
+
 class ForkingExecutor
   class Server
     include DRb::DRbUndumped
@@ -69,6 +71,72 @@ class ForkingExecutor
         Minitest::UnexpectedError.new ex
       end
     }
+  end
+end
+
+module TheMetal
+  class WebServerTest < Minitest::Test
+    parallelize_me!
+
+    def setup
+      super
+
+      @connect_point = URI('http://127.0.0.1:1337')
+      @t = Thread.new {
+        resp = begin
+                 Net::HTTP.get_response @connect_point
+               rescue
+                 retry
+               end
+        shutdown
+        resp
+      }
+    end
+
+    def response
+      @t.join
+      @t.value
+    end
+
+    def start_server
+      Thread.new { yield }
+    end
+  end
+
+  module StatusTests
+    class Application
+      def initialize code
+        @code = code
+      end
+
+      def serve req, res
+        res.write_head @code, 'Content-Type' => 'text/plain'
+        res.write "Hello World\n"
+        res.close
+      end
+    end
+
+    def test_server_404
+      start_server do
+        @server = TheMetal.create_server Application.new 404
+        @server.listen @connect_point.port, @connect_point.host
+      end
+
+      assert_equal 404, response.code.to_i
+      assert_equal 'text/plain', response['Content-Type']
+      assert_equal "Hello World\n", response.body
+    end
+
+    def test_server_200
+      start_server do
+        @server = TheMetal.create_server Application.new 200
+        @server.listen @connect_point.port, @connect_point.host
+      end
+
+      assert_equal 200, response.code.to_i
+      assert_equal 'text/plain', response['Content-Type']
+      assert_equal "Hello World\n", response.body
+    end
   end
 end
 
