@@ -1,10 +1,10 @@
 = the_metal
 
-* FIX (url)
+* http://github.com/tenderlove/the_metal
 
 == DESCRIPTION:
 
-FIX (describe your package)
+A spike for researching Rack 2.0
 
 == FEATURES/PROBLEMS:
 
