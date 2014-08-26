@@ -42,8 +42,16 @@ module TheMetal
         @socket           = socket
       end
 
-      def write_head status, headers
+      def status= status
         @webrick_response.status = status
+      end
+
+      def status
+        @webrick_response.status
+      end
+
+      def write_head status, headers
+        self.status = status
 
         headers.each do |key, value|
           @webrick_response[key] = value
