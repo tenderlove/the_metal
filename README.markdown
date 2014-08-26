@@ -158,8 +158,8 @@ the same as the input IO.  This is entirely up to the webserver implementer.
 So far, the ideas I've laid out are sort of vague, and I've not been very
 specific about the exact behavior.  To address this, I think we should develop
 a test suite that web server implementors can run to ensure that all webservers
-behave similarly.  I've demonstrated that with Unicorn, Puma, and WEBRick in
-the tests for this project.
+behave similarly.  Think RubySpec, but for Ruby webservers.  I've demonstrated
+that with Unicorn, Puma, and WEBRick in the tests for this project.
 
 ## Finally
 
@@ -169,6 +169,7 @@ of my thoughts to code.  My overall idea is:
 * Applications should be dealing with streams
 * Request / Response objects abstract applications from specific implementations
 * A middleware framework **should not** be defined by Rack 2.0.
+* Test should ensure webserver compatibility
 
 ## LICENSE:
 
