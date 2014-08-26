@@ -2,6 +2,8 @@ require 'helper'
 require 'net/http'
 
 class TestPuma < MiniTest::Test
+  parallelize_me!
+
   def self.webserver; :puma; end
 
   class Application
