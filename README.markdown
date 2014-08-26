@@ -173,6 +173,9 @@ of my thoughts to code.  My overall idea is:
 * A middleware framework **should not** be defined by Rack 2.0.
 * Test should ensure webserver compatibility
 
+If you have ideas for changes, please open a ticket or send a pull request.
+Let's make the HTTP landscape for Ruby even more amazing!
+
 ## LICENSE:
 
 (The MIT License)
