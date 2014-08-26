@@ -3,6 +3,7 @@ require 'minitest/autorun'
 require 'drb'
 require 'drb/unix'
 require 'tempfile'
+require 'net/http'
 
 Thread.abort_on_exception = true
 

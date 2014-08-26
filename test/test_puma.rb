@@ -1,5 +1,4 @@
 require 'helper'
-require 'net/http'
 
 class TestPuma < TheMetal::WebServerTest
   def self.webserver; :puma; end
