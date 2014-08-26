@@ -1,5 +1,4 @@
 require 'helper'
-require 'net/http'
 
 class TestUnicorn < TheMetal::WebServerTest
   def self.webserver; :unicorn; end
