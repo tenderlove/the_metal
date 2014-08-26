@@ -41,9 +41,15 @@ class TestUnicorn < MiniTest::Test
     @t.value
   end
 
+  def start_server
+    Thread.new { yield }
+  end
+
   def test_server_404
-    server = TheMetal.create_server Application.new 404
-    server.listen @connect_point.port, @connect_point.host
+    start_server do
+      @server = TheMetal.create_server Application.new 404
+      @server.listen @connect_point.port, @connect_point.host
+    end
 
     assert_equal 404, response.code.to_i
     assert_equal 'text/plain', response['Content-Type']
@@ -51,8 +57,10 @@ class TestUnicorn < MiniTest::Test
   end
 
   def test_server_200
-    server = TheMetal.create_server Application.new 200
-    server.listen @connect_point.port, @connect_point.host
+    start_server do
+      @server = TheMetal.create_server Application.new 200
+      @server.listen @connect_point.port, @connect_point.host
+    end
 
     assert_equal 200, response.code.to_i
     assert_equal 'text/plain', response['Content-Type']
