@@ -3,9 +3,9 @@ require 'the_metal/response'
 
 module TheMetal
   class Unicorn < Unicorn::HttpServer
-    def start
-      @app.start_app if @app.respond_to? :start_app
+    def build_app!
       super
+      @app.start_app if @app.respond_to? :start_app
     end
 
     def process_client client
