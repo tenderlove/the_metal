@@ -12,6 +12,7 @@ module TheMetal
     class Proxy
       def initialize app
         @app = app
+        TheMetal.start_app app
       end
 
       def listen port, address

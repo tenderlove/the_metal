@@ -6,7 +6,7 @@ module TheMetal
   class Puma
     def initialize app
       @app = app
-      app.start_app if app.respond_to? :start_app
+      TheMetal.start_app app
     end
 
     def call env

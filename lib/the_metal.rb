@@ -32,4 +32,8 @@ module TheMetal
             end
     Application.new events, chain
   end
+
+  def self.start_app app
+    app.start_app if app.respond_to? :start_app
+  end
 end

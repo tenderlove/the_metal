@@ -5,7 +5,7 @@ module TheMetal
   class Unicorn < Unicorn::HttpServer
     def build_app!
       super
-      @app.start_app if @app.respond_to? :start_app
+      TheMetal.start_app @app
     end
 
     def process_client client
