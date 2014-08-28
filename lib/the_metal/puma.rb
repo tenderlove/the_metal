@@ -38,7 +38,7 @@ module TheMetal
     end
   end
 
-  def self.create_server app
+  def self.create_server_proxy app
     Puma::Proxy.new app
   end
 end

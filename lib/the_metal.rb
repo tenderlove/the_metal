@@ -20,6 +20,10 @@ module TheMetal
     end
   end
 
+  def self.create_server app
+    self.create_server_proxy app
+  end
+
   def self.build_app events, filters, app
     chain = if filters.empty?
               app

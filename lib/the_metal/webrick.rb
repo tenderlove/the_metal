@@ -4,7 +4,7 @@ require 'the_metal/request'
 require 'the_metal/response'
 
 module TheMetal
-  def self.create_server app
+  def self.create_server_proxy app
     WEBrick::Proxy.new app
   end
 
