@@ -17,6 +17,10 @@ Totally experimental.  It's just a spike.
 An app without any middleware:
 
 ```ruby
+gem 'the_metal', github: 'tenderlove/the_metal'
+```
+
+```ruby
 require 'the_metal/puma'
 
 TheMetal.create_server(->(req, res) {
