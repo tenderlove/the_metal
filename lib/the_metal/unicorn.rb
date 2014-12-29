@@ -8,8 +8,8 @@ module TheMetal
       @app.start_app if @app.respond_to? :start_app
     end
 
-    def process_client client
-      env = @request.read client
+    def process_client socket
+      env = @request.read socket
 
       default_headers = {
         'Date'       => httpdate,
@@ -17,10 +17,10 @@ module TheMetal
       }
 
       req = TheMetal::Request.new env
-      res = TheMetal::Response.new 200, default_headers, client
+      res = TheMetal::Response.new 200, default_headers, socket
       @app.call req, res
     rescue => e
-      handle_error client, e
+      handle_error socket, e
     end
 
     class Proxy
