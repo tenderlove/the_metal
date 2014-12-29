@@ -5,14 +5,14 @@ module TheMetal
       endpoint.start
     end
 
-    def serve request, response
+    def call request, response
       if middleware.empty?
-        endpoint.serve request, response
+        endpoint.call request, response
       else
         chain = self.class.new middleware.drop(1), endpoint
         middleware.first.filter request, response, chain
       end
     end
-    alias :next :serve
+    alias :next :call
   end
 end
