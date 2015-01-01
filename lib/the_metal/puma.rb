@@ -6,7 +6,7 @@ module TheMetal
   class Puma
     def initialize app
       @app = app
-      app.start_app if app.respond_to? :start_app
+      TheMetal.start_app app
     end
 
     def call env
@@ -38,7 +38,7 @@ module TheMetal
     end
   end
 
-  def self.create_server app
+  def self.create_server_proxy app
     Puma::Proxy.new app
   end
 end
